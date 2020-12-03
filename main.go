@@ -3,61 +3,44 @@ package main
 import (
 	"fmt"
 	"os"
-	"regexp"
 	"strconv"
 )
-
+// Первые 500 простых чисел limit = 3572
+// Первые 10000 простых чисел limit = 104730
+// Первые 100000 простых чисел limit = 1299720
 func main()  {
-	var a string
-	for{
-
-		fmt.Println("Введите выражение, например 5 + 2:")
-		if _, err := fmt.Fscan(os.Stdin, &a); err != nil {
-			fmt.Println("Какая-то ошибка: %v", err)
-			os.Exit(1)
-		}
-		r := regexp.MustCompile(`(?P<v1>-?\d+) ?(?P<operator>[+\-*\/^]) ?(?P<v2>-?\d+)`)
-		m := r.FindStringSubmatch(a)
-		if len(m) == 0 {
-			fmt.Println("Только числа и операторы +,-,*,/ ")
-			continue
-		}
-		v1 := m[r.SubexpIndex("v1")]
-		v2 := m[r.SubexpIndex("v2")]
-		operator := m[r.SubexpIndex("operator")]
-
-		var var1, var2 int64
-		var err error
-		if var1, err = strconv.ParseInt(v1, 10, 64); err != nil {
-			fmt.Println("Первый операнд должен быть числом")
-			continue
-		}
-
-		if var2, err = strconv.ParseInt(v2, 10, 64); err != nil {
-			fmt.Println("Второй операнд должен быть числом")
-			continue
-		}
-
-		var result int64
-		switch operator {
-		case "+":
-			result = var1 + var2
-		case "-":
-			result = var1 - var2
-		case "*":
-			result = var1 * var2
-		case "/":
-			if var2 == 0 {
-				fmt.Println("Я бы с радостью, но хозяин не разрешает делить на ноль")
-				continue
-			}
-			result = var1 / var2
-		default:
-			fmt.Println("Поддерживаются только операторы +,-,*,/")
-			continue
-		}
-
-		fmt.Println("Равно: ", result)
+	var n string
+	if _, err := fmt.Fscan(os.Stdin, &n); err != nil{
+		fmt.Println("Error: ", err.Error())
+		os.Exit(2)
 	}
+
+	var limit int
+	var err error
+	if limit, err = strconv.Atoi(n); err != nil {
+		fmt.Println("Error: ", err.Error())
+		os.Exit(2)
+	}
+
+	var n_numbers []int
+
+	n_numbers = append(n_numbers, 2,3,5)
+	fmt.Printf("%v", n_numbers)
+	iter:
+	for i:=6; i <= limit; i++ {
+		if !(i % 2 == 0 || i % 3 == 0 || i % 5 == 0) {
+			for _, nn:= range n_numbers{
+				if i % nn == 0 {
+					continue iter
+				}
+			}
+			n_numbers = append(n_numbers, i)
+			fmt.Printf(" %d", i)
+		}
+	}
+	fmt.Println("")
+	fmt.Println("Count: ", len(n_numbers))
 }
+
+
 
