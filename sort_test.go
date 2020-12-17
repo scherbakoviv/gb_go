@@ -7,29 +7,37 @@ import (
 
 func BenchmarkSortBubble(b *testing.B) {
 	rand.Seed(1000)
+	s := make([]int, 1000)
 	for n := 0; n < b.N; n++ {
-		SortBubble(GetRandomSlice())
+		_ = FillRandomSlice(s)
+		SortBubble(s)
 	}
 }
 
 func BenchmarkSortInsert(b *testing.B) {
 	rand.Seed(1000)
+	s := make([]int, 1000)
 	for n := 0; n < b.N; n++ {
-		SortInsert(GetRandomSlice())
+		_ = FillRandomSlice(s)
+		SortBubble(s)
 	}
 }
 
 func BenchmarkSortInsertT(b *testing.B) {
 	rand.Seed(1000)
+	s := make([]int, 1000)
 	for n := 0; n < b.N; n++ {
-		SortInsertT(GetRandomSlice())
+		_ = FillRandomSlice(s)
+		SortBubble(s)
 	}
 }
 
 func BenchmarkSortInsertClassic(b *testing.B) {
 	rand.Seed(1000)
+	s := make([]int, 1000)
 	for n := 0; n < b.N; n++ {
-		SortInsertClassic(GetRandomSlice())
+		_ = FillRandomSlice(s)
+		SortBubble(s)
 	}
 }
 

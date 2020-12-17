@@ -20,12 +20,14 @@ func main() {
 	}
 }
 
-func GetRandomSlice() []int {
-	a := []int{}
-	for i := 0; i < 1000; i++ {
-		a = append(a, rand.Intn(100))
+func FillRandomSlice(a []int) error {
+	if a == nil {
+		return fmt.Errorf("nil slice")
 	}
-	return a
+	for i,_ := range a {
+		a[i] = rand.Intn(100)
+	}
+	return nil
 }
 
 func SortBubble(a []int) []int {
